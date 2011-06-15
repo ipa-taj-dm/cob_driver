@@ -126,8 +126,8 @@ bool ik_solve(kinematics_msgs::GetPositionIK::Request  &req,
 	res.solution.joint_state.effort.resize(nj);
 	if(ret < 0)
 	{
-		res.error_code.val = 0;
-		//res.error_code.val = res.error_code.NO_IK_SOLUTION;
+		//res.error_code.val = 0;
+		res.error_code.val = res.error_code.NO_IK_SOLUTION;
 		ROS_INFO("Inverse Kinematic found no solution");
 		std::cout << "RET: " << ret << std::endl;
 		for(int i = 0; i < nj; i++)
@@ -140,8 +140,8 @@ bool ik_solve(kinematics_msgs::GetPositionIK::Request  &req,
 	else
 	{
 		ROS_INFO("Inverse Kinematic found a solution");
-		res.error_code.val = 1;
-		//res.error_code.val = res.error_code.SUCCESS;
+		//res.error_code.val = 1;
+		res.error_code.val = res.error_code.SUCCESS;
 		for(int i = 0; i < nj; i++)
 		{
 			res.solution.joint_state.position[i] = q(i);
@@ -175,8 +175,7 @@ bool constraint_aware_ik_solve(kinematics_msgs::GetConstraintAwarePositionIK::Re
 	//all other fields of GetConstraintAwarePositionIK::Request (allowed_contacts, ordered_collision_operations, link_padding, constraints) are dropped
 	
 	bool success = ik_solve(request, response);
-
-
+	
 	if(response.error_code.val == 1) res.error_code.val = res.error_code.SUCCESS;
 	else res.error_code.val = res.error_code.NO_IK_SOLUTION;
 	
