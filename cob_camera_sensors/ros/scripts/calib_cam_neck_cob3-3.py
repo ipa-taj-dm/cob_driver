@@ -62,10 +62,14 @@ class CalibCam(script):
 			else:	
 				r1 = (random()-0.5)*2*maxVal;
 				r2 = 2*(random()-0.5)*2*maxVal;
-			self.sss.move("torso",[[0.75*r1,0.75*r2,r1]])
+			self.sss.move("torso",[[0.75*r1,r2,r1]])
 			self.sss.sleep(1)
 			try:
+<<<<<<< HEAD
+				(trans,rot) = listener.lookupTransform('/base_link', '/head_color_camera_l_link', rospy.Time(0))
+=======
 				(trans,rot) = listener.lookupTransform('/base_link', '/head_axis_link', rospy.Time(0))
+>>>>>>> ce1bbe12844deb9fe445965663d22adcf513bcad
 				rpy = euler_from_quaternion(rot)
 				cyaw = cos(rpy[2])
 				syaw = sin(rpy[2])
